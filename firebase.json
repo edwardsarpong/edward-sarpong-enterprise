@@ -10,6 +10,7 @@
     "rules": "storage.rules"
   },
   "hosting": {
+    "site": "edward-sarpong-official",
     "public": "public",
     "cleanUrls": true,
     "trailingSlash": false,
