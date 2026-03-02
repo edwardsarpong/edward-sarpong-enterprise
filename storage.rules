@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isCrmUser() {
+      return request.auth != null &&
+        exists(/databases/$(database)/documents/crm_users/$(request.auth.uid));
+    }
+
+    match /lead-uploads/{leadId}/{allPaths=**} {
+      allow read, write: if isCrmUser();
+    }
+
+    match /order-uploads/{orderId}/{allPaths=**} {
+      allow read, write: if isCrmUser();
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Custom Furniture | Edward Sarpong Enterprise</title>
+  <link rel="stylesheet" href="shop.css">
+</head>
+<body>
+  <header class="shop-header">
+    <a class="logo" href="index.html" aria-label="Edward Sarpong Enterprise">
+      <div class="name-container">
+        <div class="first-name">EDWARD</div>
+        <div class="last-name-container">
+          <div class="last-name">SARPONG</div>
+          <div class="tagline">MORE TO EXPLORE</div>
+        </div>
+      </div>
+    </a>
+    <nav class="shop-nav">
+      <a href="index.html">Home</a>
+      <a href="kitchen-cabinets.html">Services</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <button class="cart-toggle" id="cartToggle" type="button" aria-label="Open cart" aria-expanded="false">
+      Cart
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="shop-hero">
+      <div>
+        <h1>Furniture & Interior Packages</h1>
+        <p>Choose ready-to-build packages and pay in GHS via mobile money or bank transfer. Prices display in multiple currencies, but payment remains in GHS.</p>
+      </div>
+      <div class="currency-card">
+        <label for="currency">Display currency</label>
+        <select id="currency">
+          <option value="GHS">GHS (payable)</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+        </select>
+        <div class="rate-note" id="rateNote">Rates update automatically.</div>
+      </div>
+    </section>
+
+    <section class="shop-grid" id="productGrid"></section>
+
+    <div class="cart-overlay" id="cartOverlay" hidden></div>
+    <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+      <div class="cart-drawer-header">
+        <h2>Shopping Cart</h2>
+        <button class="link-button" id="cartClose" type="button">Close</button>
+      </div>
+      <section class="cart-section">
+        <div class="cart-panel">
+          <div class="cart-card">
+            <div id="cartItems" class="cart-items"></div>
+          </div>
+
+          <div class="summary-card">
+            <h2>Order summary</h2>
+            <div class="cart-summary">
+              <div>
+                <span id="cartItemCount">0 items</span>
+                <strong id="cartSubtotal">GHS 0</strong>
+              </div>
+              <div>
+                <span>Savings</span>
+                <strong id="cartSavings">GHS 0</strong>
+              </div>
+              <div>
+                <span>Payment</span>
+                <strong>GHS (Mobile Money / Bank Transfer)</strong>
+              </div>
+            </div>
+          </div>
+
+          <details class="checkout-card checkout-accordion" open>
+            <summary>Checkout</summary>
+            <form id="checkoutForm">
+          <div class="field-group">
+            <label for="buyerName">Full name *</label>
+            <input id="buyerName" name="name" type="text" required>
+          </div>
+          <div class="field-group">
+            <label for="buyerPhone">Phone *</label>
+            <input id="buyerPhone" name="phone" type="tel" required>
+          </div>
+          <div class="field-group">
+            <label for="buyerEmail">Email</label>
+            <input id="buyerEmail" name="email" type="email">
+          </div>
+          <div class="field-group">
+            <label for="buyerCity">City / Location</label>
+            <input id="buyerCity" name="city" type="text">
+          </div>
+          <div class="field-group">
+            <label for="buyerAddress">Delivery address</label>
+            <input id="buyerAddress" name="address" type="text">
+          </div>
+          <div class="field-group">
+            <label for="paymentMethod">Payment method</label>
+            <select id="paymentMethod" name="paymentMethod" required>
+              <option value="Mobile Money">Mobile Money (GHS)</option>
+              <option value="Bank Transfer">Bank Transfer (GHS)</option>
+            </select>
+          </div>
+          <div class="payment-instructions" id="paymentDetails"></div>
+          <div class="field-group">
+            <label for="paymentProof">Upload proof of payment (optional)</label>
+            <input id="paymentProof" name="paymentProof" type="file" accept="image/*,.pdf">
+          </div>
+          <div class="field-group">
+            <label for="buyerNote">Order notes</label>
+            <textarea id="buyerNote" name="note" rows="3"></textarea>
+          </div>
+          <label class="consent">
+            <input type="checkbox" id="orderConsent" required>
+            I confirm this order and consent to be contacted.
+          </label>
+          <div class="field-group">
+            <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY"></div>
+          </div>
+              <button type="submit" class="btn">Place Order</button>
+              <div class="form-message" id="orderMessage" hidden></div>
+            </form>
+          </details>
+
+          <div class="saved-card">
+            <h3>Saved for later</h3>
+            <div id="savedItems" class="saved-items"></div>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="shop-config.js"></script>
+  <script src="shop.js"></script>
+</body>
+</html>

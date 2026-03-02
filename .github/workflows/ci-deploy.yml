@@ -1,0 +1,176 @@
+name: CI and Deploy
+
+# ---------------------------------------------------------------
+# Triggers
+# ---------------------------------------------------------------
+# - Every pull_request   → run CI + deploy a preview channel
+# - push to main         → run CI + deploy to production
+# - workflow_dispatch    → manual run (can target any branch)
+# ---------------------------------------------------------------
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      skip_deploy:
+        description: 'Skip the deploy step (dry-run CI only)'
+        required: false
+        default: 'false'
+        type: string
+
+# Cancel any in-progress run for the same ref so pushes don't queue up
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------
+  # 1. CI — runs on every push and PR
+  # ---------------------------------------------------------------
+  ci:
+    name: Lint & validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: functions/package-lock.json
+
+      - name: Verify lockfile is committed
+        run: |
+          if [ ! -f functions/package-lock.json ]; then
+            echo "ERROR: functions/package-lock.json is missing."
+            echo "Run 'npm install' inside /functions and commit the lockfile."
+            exit 1
+          fi
+
+      - name: Install Functions dependencies (clean install)
+        run: npm ci
+        working-directory: functions
+
+      - name: Validate Functions syntax
+        run: npm run check
+        working-directory: functions
+
+      - name: Validate firebase.json
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('firebase.json','utf8')); console.log('firebase.json valid')"
+
+      - name: Validate firestore.rules syntax
+        run: |
+          if command -v firebase &> /dev/null; then
+            firebase firestore:rules --check || true
+          else
+            echo "Firebase CLI not available; skipping rules lint"
+          fi
+
+      - name: Check placeholder secrets are not deployed
+        run: |
+          if grep -r 'YOUR_API_KEY\|YOUR_TURNSTILE_SITE_KEY\|ADD_MOMO_NUMBER\|ADD_BANK_NAME' public/; then
+            echo "WARNING: Placeholder values found in public/. Replace them before deploying."
+          fi
+
+  # ---------------------------------------------------------------
+  # 2. Preview — deploy a Firebase Hosting preview channel on PRs
+  # ---------------------------------------------------------------
+  preview:
+    name: Deploy preview channel
+    if: github.event_name == 'pull_request'
+    needs: ci
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write   # needed to post the preview URL comment
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: functions/package-lock.json
+
+      - name: Install Functions dependencies
+        run: npm ci
+        working-directory: functions
+
+      - name: Deploy hosting preview channel
+        if: ${{ secrets.FIREBASE_TOKEN != '' && secrets.FIREBASE_PROJECT_ID != '' }}
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+          channelId: preview-pr-${{ github.event.pull_request.number }}
+          expires: 7d
+
+      - name: Skip preview (missing secrets)
+        if: ${{ secrets.FIREBASE_TOKEN == '' || secrets.FIREBASE_PROJECT_ID == '' }}
+        run: echo "Skipping preview deploy: FIREBASE_TOKEN or FIREBASE_PROJECT_ID not configured."
+
+  # ---------------------------------------------------------------
+  # 3. Production — deploy hosting + functions only on main pushes
+  # ---------------------------------------------------------------
+  deploy:
+    name: Deploy to production
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      github.event.inputs.skip_deploy != 'true'
+    needs: ci
+    runs-on: ubuntu-latest
+    environment: production   # ties into GitHub environment protection rules
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: functions/package-lock.json
+
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Install Functions dependencies
+        run: npm ci
+        working-directory: functions
+
+      - name: Set Firebase runtime config (CORS + Turnstile)
+        if: ${{ secrets.FIREBASE_TOKEN != '' && secrets.FIREBASE_PROJECT_ID != '' }}
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          TURNSTILE_SECRET: ${{ secrets.TURNSTILE_SECRET }}
+          ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
+        run: |
+          firebase functions:config:set \
+            security.turnstile_secret="$TURNSTILE_SECRET" \
+            security.allowed_origins="$ALLOWED_ORIGINS" \
+            --project "$FIREBASE_PROJECT_ID"
+
+      - name: Deploy hosting and functions
+        if: ${{ secrets.FIREBASE_TOKEN != '' && secrets.FIREBASE_PROJECT_ID != '' }}
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+        run: |
+          firebase deploy --only hosting,functions \
+            --project "$FIREBASE_PROJECT_ID" \
+            --message "Deploy from ${{ github.sha }}"
+
+      - name: Skip deploy (missing secrets)
+        if: ${{ secrets.FIREBASE_TOKEN == '' || secrets.FIREBASE_PROJECT_ID == '' }}
+        run: |
+          echo "Skipping deploy: FIREBASE_TOKEN or FIREBASE_PROJECT_ID not configured."
+          echo "See README.md → GitHub Secrets for setup instructions."

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /tmp/
+
+Sitemap: https://www.edwardsarpong.com/sitemap.xml

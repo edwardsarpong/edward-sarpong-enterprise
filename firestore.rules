@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isCrmUser() {
+      return isSignedIn() && exists(/databases/$(database)/documents/crm_users/$(request.auth.uid));
+    }
+
+    match /crm_users/{uid} {
+      allow read: if isSignedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    match /leads/{leadId} {
+      allow read, write: if isCrmUser();
+
+      match /notes/{noteId} {
+        allow read, write: if isCrmUser();
+      }
+    }
+
+    match /orders/{orderId} {
+      allow read, write: if isCrmUser();
+
+      match /notes/{noteId} {
+        allow read, write: if isCrmUser();
+      }
+    }
+
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isCrmUser();
+    }
+
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isCrmUser();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

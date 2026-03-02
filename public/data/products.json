@@ -1,0 +1,119 @@
+[
+  {
+    "id": "kitchen-classic",
+    "name": "Classic Kitchen Cabinet Set",
+    "category": "Kitchen",
+    "priceGhs": 12500,
+    "leadTime": "4-6 weeks",
+    "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+    "description": "Solid wood cabinetry with soft-close hardware and premium finishes."
+  },
+  {
+    "id": "wardrobe-compact",
+    "name": "Compact Wardrobe System",
+    "category": "Wardrobes",
+    "priceGhs": 6400,
+    "leadTime": "3-5 weeks",
+    "image": "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=900&q=80",
+    "description": "Custom closet solution with adjustable shelving and drawers."
+  },
+  {
+    "id": "tv-unit-luxe",
+    "name": "Luxe TV Wall Unit",
+    "category": "TV Units",
+    "priceGhs": 7200,
+    "leadTime": "3-4 weeks",
+    "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80",
+    "description": "Floating media wall with hidden storage and integrated lighting."
+  },
+  {
+    "id": "countertop-quartz",
+    "name": "Quartz Countertop Package",
+    "category": "Countertops",
+    "priceGhs": 9800,
+    "leadTime": "2-3 weeks",
+    "image": "https://images.unsplash.com/photo-1556909114-44e1cd5fdc8e?auto=format&fit=crop&w=900&q=80",
+    "description": "Durable quartz surfaces for kitchens or vanities with edge profiling."
+  },
+  {
+    "id": "office-executive",
+    "name": "Executive Office Desk",
+    "category": "Office Furniture",
+    "priceGhs": 5200,
+    "leadTime": "3-4 weeks",
+    "image": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80",
+    "description": "Ergonomic executive desk with cable management and storage."
+  },
+  {
+    "id": "reception-fitout",
+    "name": "Reception Desk Fit-Out",
+    "category": "Office Furniture",
+    "priceGhs": 8700,
+    "leadTime": "4-6 weeks",
+    "image": "https://images.unsplash.com/photo-1497366412874-3415097a27e7?auto=format&fit=crop&w=900&q=80",
+    "description": "Custom reception counter with laminate and wood accents."
+  },
+  {
+    "id": "hardware-soft-close",
+    "name": "Soft-Close Hinge Set",
+    "category": "Hardware",
+    "priceGhs": 420,
+    "leadTime": "1-2 weeks",
+    "image": "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80",
+    "description": "Premium soft-close hinges for smooth, silent cabinet doors."
+  },
+  {
+    "id": "hardware-drawer-slides",
+    "name": "Heavy-Duty Drawer Slides",
+    "category": "Hardware",
+    "priceGhs": 380,
+    "leadTime": "1-2 weeks",
+    "image": "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=900&q=80",
+    "description": "Ball-bearing slides rated for frequent, heavy use."
+  },
+  {
+    "id": "hardware-handles",
+    "name": "Matte Black Handle Set",
+    "category": "Hardware",
+    "priceGhs": 260,
+    "leadTime": "1-2 weeks",
+    "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80",
+    "description": "Modern pull handles with durable powder coating."
+  },
+  {
+    "id": "kitchen-island",
+    "name": "Kitchen Island Package",
+    "category": "Kitchen",
+    "priceGhs": 8900,
+    "leadTime": "3-5 weeks",
+    "image": "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=900&q=80",
+    "description": "Custom island with storage, seating, and durable worktop."
+  },
+  {
+    "id": "wardrobe-sliding",
+    "name": "Sliding Door Wardrobe",
+    "category": "Wardrobes",
+    "priceGhs": 7600,
+    "leadTime": "3-5 weeks",
+    "image": "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=900&q=80",
+    "description": "Space-saving wardrobe with mirrored sliding doors."
+  },
+  {
+    "id": "office-workstation",
+    "name": "Office Workstation Cluster",
+    "category": "Office Furniture",
+    "priceGhs": 11200,
+    "leadTime": "4-6 weeks",
+    "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80",
+    "description": "Multi-user workstation setup with integrated storage."
+  },
+  {
+    "id": "countertop-granite",
+    "name": "Granite Countertop Upgrade",
+    "category": "Countertops",
+    "priceGhs": 11800,
+    "leadTime": "2-4 weeks",
+    "image": "https://images.unsplash.com/photo-1556909114-44e1cd5fdc8e?auto=format&fit=crop&w=900&q=80",
+    "description": "Premium granite surface upgrade with edge finishing."
+  }
+]

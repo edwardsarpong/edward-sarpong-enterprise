@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edward Sarpong CRM</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <a href="../index.html" class="logo" aria-label="Edward Sarpong Enterprise" target="_blank" rel="noopener noreferrer">
+          <div class="name-container">
+            <div class="first-name">EDWARD</div>
+            <div class="last-name-container">
+              <div class="last-name">SARPONG</div>
+              <div class="tagline">MORE TO EXPLORE</div>
+            </div>
+          </div>
+        </a>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <div class="brand-text">
+          <strong>Edward Sarpong CRM</strong>
+          <span>Leads + pipeline</span>
+        </div>
+      </div>
+      <div class="topbar-actions" id="topbarActions" hidden>
+        <button class="btn ghost" id="exportCsv">Export CSV</button>
+        <button class="btn" id="signOut">Sign out</button>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="card auth" id="authCard">
+        <h1>Sign in</h1>
+        <p>Access the CRM with your approved account.</p>
+        <form id="emailLogin">
+          <label>
+            Email
+            <input type="email" id="loginEmail" placeholder="name@example.com" required>
+          </label>
+          <label>
+            Password
+            <input type="password" id="loginPassword" placeholder="Password" required>
+          </label>
+          <button class="btn" type="submit">Sign in</button>
+        </form>
+        <div class="auth-divider">or</div>
+        <button class="btn outline" id="googleLogin">Continue with Google</button>
+        <p class="auth-note">Need access? Add your user in Firestore under <strong>crm_users</strong>.</p>
+        <div class="error" id="authError" hidden></div>
+      </section>
+
+      <section class="crm" id="crmApp" hidden>
+        <div class="tabs">
+          <button class="tab active" type="button" data-tab="leads">Leads</button>
+          <button class="tab" type="button" data-tab="orders">Orders</button>
+          <button class="tab" type="button" data-tab="products">Products</button>
+          <button class="tab" type="button" data-tab="settings">Settings</button>
+        </div>
+
+        <div class="tab-panel active" id="leadsPanel">
+          <div class="columns">
+            <div class="card leads">
+              <div class="card-header">
+                <h2>Leads</h2>
+                <span class="muted" id="leadCount">0</span>
+              </div>
+              <div class="lead-list" id="leadList"></div>
+            </div>
+
+            <div class="card detail" id="leadDetail">
+              <div class="empty">Select a lead to view details.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="ordersPanel">
+          <div class="columns">
+            <div class="card leads">
+              <div class="card-header">
+                <h2>Orders</h2>
+                <span class="muted" id="orderCount">0</span>
+              </div>
+              <div class="lead-list" id="orderList"></div>
+            </div>
+
+            <div class="card detail" id="orderDetail">
+              <div class="empty">Select an order to view details.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="productsPanel">
+          <div class="columns">
+            <div class="card leads">
+              <div class="card-header">
+                <h2>Products</h2>
+                <span class="muted" id="productCount">0</span>
+              </div>
+              <div class="lead-list" id="productList"></div>
+            </div>
+
+            <div class="card detail">
+              <form id="productForm" class="product-form">
+                <input type="hidden" id="productId">
+                <label>
+                  Product name
+                  <input type="text" id="productName" required>
+                </label>
+                <label>
+                  Category
+                  <input type="text" id="productCategory" required>
+                </label>
+                <label>
+                  Price (GHS)
+                  <input type="number" id="productPrice" min="0" step="1" required>
+                </label>
+                <label>
+                  Lead time
+                  <input type="text" id="productLeadTime" required>
+                </label>
+                <label>
+                  Image URL
+                  <input type="url" id="productImage" required>
+                </label>
+                <label>
+                  Description
+                  <textarea id="productDescription" rows="4" required></textarea>
+                </label>
+                <label class="product-toggle">
+                  <input type="checkbox" id="productActive" checked>
+                  Active in shop
+                </label>
+                <div class="form-actions">
+                  <button type="submit" class="btn">Save</button>
+                  <button type="button" class="btn outline" id="productClear">Clear</button>
+                  <button type="button" class="btn ghost" id="productDelete">Delete</button>
+                </div>
+                <div class="form-message" id="productMessage" hidden></div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="settingsPanel">
+          <div class="columns">
+            <div class="card detail">
+              <form id="settingsForm" class="product-form settings-form">
+                <h2>Payment Settings</h2>
+                <label>
+                  Mobile Money Provider
+                  <input type="text" id="settingsMomoProvider" required>
+                </label>
+                <label>
+                  Mobile Money Number
+                  <input type="text" id="settingsMomoNumber" required>
+                </label>
+                <label>
+                  Mobile Money Account Name
+                  <input type="text" id="settingsMomoName" required>
+                </label>
+                <label>
+                  Bank Name
+                  <input type="text" id="settingsBankName" required>
+                </label>
+                <label>
+                  Bank Account Number
+                  <input type="text" id="settingsBankAccount" required>
+                </label>
+                <label>
+                  Bank Account Name
+                  <input type="text" id="settingsBankAccountName" required>
+                </label>
+                <label class="product-toggle">
+                  <input type="checkbox" id="settingsProofRequired">
+                  Require proof of payment for orders
+                </label>
+                <div class="form-actions">
+                  <button type="submit" class="btn">Save Settings</button>
+                </div>
+                <div class="form-message" id="settingsMessage" hidden></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
