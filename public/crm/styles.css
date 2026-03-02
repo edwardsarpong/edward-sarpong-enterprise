@@ -319,11 +319,20 @@ body {
 }
 
 .product-form input,
-.product-form textarea {
+.product-form textarea,
+.product-form select {
   padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid var(--border);
   font-size: 14px;
+  background: var(--bg, #fff);
+  color: inherit;
+}
+
+.product-form em {
+  font-style: italic;
+  color: var(--muted, #888);
+  font-size: 12px;
 }
 
 .product-toggle {

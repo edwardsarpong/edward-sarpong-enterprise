@@ -105,36 +105,88 @@
             <div class="card detail">
               <form id="productForm" class="product-form">
                 <input type="hidden" id="productId">
+
+                <h3 style="margin:0 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted,#888)">Basic Info</h3>
                 <label>
-                  Product name
+                  Product name *
                   <input type="text" id="productName" required>
                 </label>
                 <label>
-                  Category
-                  <input type="text" id="productCategory" required>
+                  Category *
+                  <select id="productCategory" required>
+                    <option value="">— select —</option>
+                    <option value="Kitchen Cabinets">Kitchen Cabinets</option>
+                    <option value="Wardrobes">Wardrobes</option>
+                    <option value="TV Units">TV Units</option>
+                    <option value="Countertops">Countertops</option>
+                    <option value="Office Furniture">Office Furniture</option>
+                    <option value="Hardware">Hardware</option>
+                  </select>
+                </label>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                  <label>
+                    Price (GHS) *
+                    <input type="number" id="productPrice" min="0" step="1" required>
+                  </label>
+                  <label>
+                    Sale price (GHS)
+                    <input type="number" id="productDiscount" min="0" step="1" placeholder="Leave blank if no sale">
+                  </label>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                  <label>
+                    Lead time *
+                    <input type="text" id="productLeadTime" placeholder="e.g. 3–4 weeks" required>
+                  </label>
+                  <label>
+                    Stock status *
+                    <select id="productStock" required>
+                      <option value="In Stock">In Stock</option>
+                      <option value="Limited Stock">Limited Stock</option>
+                      <option value="Made to Order">Made to Order</option>
+                      <option value="Out of Stock">Out of Stock</option>
+                    </select>
+                  </label>
+                </div>
+                <label>
+                  Description *
+                  <textarea id="productDescription" rows="3" required></textarea>
+                </label>
+
+                <h3 style="margin:16px 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted,#888)">Images</h3>
+                <label>
+                  Image URLs — one per line (first image is the main photo)
+                  <textarea id="productImages" rows="4" placeholder="https://example.com/photo1.jpg&#10;https://example.com/photo2.jpg"></textarea>
+                </label>
+
+                <h3 style="margin:16px 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted,#888)">Details</h3>
+                <label>
+                  Dimensions
+                  <input type="text" id="productDimensions" placeholder="e.g. W 1200 × D 580 × H 720 mm">
                 </label>
                 <label>
-                  Price (GHS)
-                  <input type="number" id="productPrice" min="0" step="1" required>
+                  Materials — one per line
+                  <textarea id="productMaterials" rows="2" placeholder="18 mm MDF&#10;Soft-close hinges"></textarea>
                 </label>
                 <label>
-                  Lead time
-                  <input type="text" id="productLeadTime" required>
+                  Key features — one per line
+                  <textarea id="productFeatures" rows="3" placeholder="Integrated LED lighting&#10;Soft-close doors&#10;Adjustable shelves"></textarea>
                 </label>
+
+                <h3 style="margin:16px 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted,#888)">Variants</h3>
                 <label>
-                  Image URL
-                  <input type="url" id="productImage" required>
+                  Options — one variant group per line, format: <em>Label: Option1, Option2 +GHS500</em>
+                  <textarea id="productVariants" rows="3" placeholder="Finish: Natural Oak, White Gloss, Walnut&#10;Size: Standard, Large +GHS200, Extra Large +GHS450"></textarea>
                 </label>
-                <label>
-                  Description
-                  <textarea id="productDescription" rows="4" required></textarea>
-                </label>
+
+                <h3 style="margin:16px 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted,#888)">Visibility</h3>
                 <label class="product-toggle">
                   <input type="checkbox" id="productActive" checked>
-                  Active in shop
+                  Show in shop
                 </label>
+
                 <div class="form-actions">
-                  <button type="submit" class="btn">Save</button>
+                  <button type="submit" class="btn">Save product</button>
                   <button type="button" class="btn outline" id="productClear">Clear</button>
                   <button type="button" class="btn ghost" id="productDelete">Delete</button>
                 </div>

@@ -16,6 +16,24 @@ const productMessage = document.getElementById('productMessage');
 const productIdInput = document.getElementById('productId');
 const productClearButton = document.getElementById('productClear');
 const productDeleteButton = document.getElementById('productDelete');
+
+// helpers for enriched product fields
+function parseLines(text) {
+  return (text || '').split('\n').map(s => s.trim()).filter(Boolean);
+}
+function parseVariants(text) {
+  return parseLines(text).map(line => {
+    const colonIdx = line.indexOf(':');
+    if (colonIdx === -1) return null;
+    const label = line.slice(0, colonIdx).trim();
+    const options = line.slice(colonIdx + 1).split(',').map(s => s.trim()).filter(Boolean);
+    return { label, options };
+  }).filter(Boolean);
+}
+function variantsToText(variants) {
+  if (!Array.isArray(variants)) return '';
+  return variants.map(v => `${v.label}: ${(v.options || []).join(', ')}`).join('\n');
+}
 const settingsForm = document.getElementById('settingsForm');
 const settingsMessage = document.getElementById('settingsMessage');
 const settingsMomoProvider = document.getElementById('settingsMomoProvider');
@@ -364,9 +382,15 @@ async function selectProduct(productId) {
   document.getElementById('productName').value = product.name || '';
   document.getElementById('productCategory').value = product.category || '';
   document.getElementById('productPrice').value = product.priceGhs || 0;
+  document.getElementById('productDiscount').value = product.discountGhs || '';
   document.getElementById('productLeadTime').value = product.leadTime || '';
-  document.getElementById('productImage').value = product.image || '';
+  document.getElementById('productStock').value = product.stock || 'In Stock';
+  document.getElementById('productImages').value = (product.images || (product.image ? [product.image] : [])).join('\n');
   document.getElementById('productDescription').value = product.description || '';
+  document.getElementById('productDimensions').value = product.dimensions || '';
+  document.getElementById('productMaterials').value = (product.materials || []).join('\n');
+  document.getElementById('productFeatures').value = (product.features || []).join('\n');
+  document.getElementById('productVariants').value = variantsToText(product.variants || []);
   document.getElementById('productActive').checked = product.active !== false;
 
   document.querySelectorAll('#productList .lead-item').forEach((item) => {
@@ -379,6 +403,7 @@ function resetProductForm() {
   productIdInput.value = '';
   productForm.reset();
   document.getElementById('productActive').checked = true;
+  document.getElementById('productStock').value = 'In Stock';
   productMessage.hidden = true;
 }
 
@@ -386,13 +411,21 @@ async function saveProduct(event) {
   event.preventDefault();
   productMessage.hidden = true;
 
+  const imageLines = parseLines(document.getElementById('productImages').value);
   const payload = {
     name: document.getElementById('productName').value.trim(),
     category: document.getElementById('productCategory').value.trim(),
     priceGhs: Number(document.getElementById('productPrice').value || 0),
+    discountGhs: Number(document.getElementById('productDiscount').value || 0) || null,
     leadTime: document.getElementById('productLeadTime').value.trim(),
-    image: document.getElementById('productImage').value.trim(),
+    stock: document.getElementById('productStock').value,
+    images: imageLines,
+    image: imageLines[0] || '',
     description: document.getElementById('productDescription').value.trim(),
+    dimensions: document.getElementById('productDimensions').value.trim() || null,
+    materials: parseLines(document.getElementById('productMaterials').value),
+    features: parseLines(document.getElementById('productFeatures').value),
+    variants: parseVariants(document.getElementById('productVariants').value),
     active: document.getElementById('productActive').checked,
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
   };
