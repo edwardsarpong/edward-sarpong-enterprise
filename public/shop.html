@@ -22,6 +22,7 @@
       <a href="kitchen-cabinets.html">Services</a>
       <a href="shop.html" class="active">Shop</a>
       <a href="index.html#contact">Contact</a>
+      <a href="track.html">Track Order</a>
     </nav>
     <button class="cart-toggle" id="cartToggle" type="button" aria-label="Open cart" aria-expanded="false">
       Cart
@@ -51,6 +52,31 @@
           <option value="JPY">JPY – Japanese Yen</option>
         </select>
         <div class="rate-note" id="rateNote">Rates update automatically.</div>
+      </div>
+    </section>
+
+    <!-- Filter bar -->
+    <section class="filter-bar">
+      <div class="filter-pills" id="categoryPills">
+        <button class="pill active" data-category="All">All</button>
+        <button class="pill" data-category="Kitchen">Kitchen</button>
+        <button class="pill" data-category="Wardrobes">Wardrobes</button>
+        <button class="pill" data-category="TV Units">TV Units</button>
+        <button class="pill" data-category="Countertops">Countertops</button>
+        <button class="pill" data-category="Office Furniture">Office</button>
+        <button class="pill" data-category="Hardware">Hardware</button>
+      </div>
+      <div class="filter-controls">
+        <input type="search" id="searchInput" placeholder="Search products…" aria-label="Search products">
+        <select id="sortSelect" aria-label="Sort products">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="name-asc">Name A–Z</option>
+        </select>
+        <label class="stock-toggle-label">
+          <input type="checkbox" id="inStockOnly"> In stock only
+        </label>
       </div>
     </section>
 
@@ -114,6 +140,7 @@
             <select id="paymentMethod" name="paymentMethod" required>
               <option value="Mobile Money">Mobile Money (GHS)</option>
               <option value="Bank Transfer">Bank Transfer (GHS)</option>
+              <option value="Card">💳 Card – Pay Instantly (Paystack)</option>
             </select>
           </div>
           <div class="payment-instructions" id="paymentDetails"></div>
@@ -146,8 +173,46 @@
     </aside>
   </main>
 
+  <!-- Product detail modal -->
+  <dialog class="product-modal" id="productModal" aria-modal="true">
+    <div class="modal-inner">
+      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      <div class="modal-gallery">
+        <img class="modal-main-img" id="modalMainImg" src="" alt="">
+        <div class="modal-thumbs" id="modalThumbs"></div>
+      </div>
+      <div class="modal-info">
+        <div class="modal-meta-row">
+          <span id="modalCategory" class="modal-category"></span>
+          <span id="modalStockBadge" class="stock-badge"></span>
+        </div>
+        <h2 id="modalName"></h2>
+        <div class="modal-rating-row">
+          <span id="modalStars" class="stars"></span>
+          <span id="modalReviews" class="muted"></span>
+        </div>
+        <div class="modal-price-row">
+          <span id="modalPrice" class="modal-price"></span>
+          <span id="modalOldPrice" class="modal-old-price"></span>
+        </div>
+        <p id="modalDescription" class="modal-description"></p>
+        <div class="modal-specs">
+          <div id="modalDimensions" class="spec-row"></div>
+          <div id="modalMaterials" class="spec-row material-tags"></div>
+        </div>
+        <div id="modalVariants" class="modal-variants"></div>
+        <div id="modalFeatures" class="modal-features"></div>
+        <div class="modal-footer">
+          <p class="modal-leadtime" id="modalLeadTime"></p>
+          <button type="button" class="btn btn-full" id="modalAddToCart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script src="shop-config.js"></script>
   <script src="shop.js"></script>

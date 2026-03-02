@@ -23,7 +23,10 @@ service cloud.firestore {
     }
 
     match /orders/{orderId} {
+      // CRM staff have full access
       allow read, write: if isCrmUser();
+      // Anyone with the order ID (acts as an unguessable secret token) can read their order
+      allow read: if true;
 
       match /notes/{noteId} {
         allow read, write: if isCrmUser();

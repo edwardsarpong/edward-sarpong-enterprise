@@ -261,7 +261,8 @@ function buildOrder(payload) {
     id: sanitizeString(item.id),
     name: sanitizeString(item.name),
     priceGhs: sanitizeNumber(item.priceGhs),
-    quantity: Math.max(1, Math.floor(sanitizeNumber(item.quantity)))
+    quantity: Math.max(1, Math.floor(sanitizeNumber(item.quantity))),
+    selectedVariants: (item.selectedVariants && typeof item.selectedVariants === 'object') ? item.selectedVariants : null
   }));
 
   const subtotalGhs = orderItems.reduce((sum, item) => sum + item.priceGhs * item.quantity, 0);
@@ -278,6 +279,7 @@ function buildOrder(payload) {
     subtotalGhs,
     currencyDisplay: sanitizeString(payload.currencyDisplay) || 'GHS',
     paymentMethod: sanitizeString(payload.paymentMethod),
+    paystackRef: sanitizeString(payload.paystackRef) || null,
     note: sanitizeString(payload.note),
     pageUrl: sanitizeString(payload.pageUrl),
     source: sanitizeString(payload.source) || 'website',
@@ -522,6 +524,47 @@ exports.submitOrder = functions.https.onRequest((req, res) => {
           text: `New order received.\n\nCustomer: ${order.customer.name}\nPhone: ${order.customer.phone}\nEmail: ${order.customer.email || 'N/A'}\nPayment: ${order.paymentMethod}\nDisplay Currency: ${order.currencyDisplay}\nSubtotal (GHS): ${order.subtotalGhs}\nItems:\n${itemLines}\nNotes: ${order.note || 'N/A'}\nProof files: ${proofFiles.length}\nPage: ${order.pageUrl || 'N/A'}`
         }
       });
+
+      // Send confirmation email to customer if email was provided
+      if (order.customer.email) {
+        const itemHtmlRows = order.items.map(item =>
+          `<tr><td style="padding:8px 0;border-bottom:1px solid #eee">${item.name}</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:center">x${item.quantity}</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right">GHS ${(item.priceGhs * item.quantity).toLocaleString()}</td></tr>`
+        ).join('');
+
+        await admin.firestore().collection('mail').add({
+          to: [order.customer.email],
+          message: {
+            subject: `Your Order is Confirmed – Edward Sarpong Enterprise`,
+            html: `
+              <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1b1814">
+                <h2 style="border-bottom:2px solid #d9a441;padding-bottom:12px">Order Confirmed ✓</h2>
+                <p>Hi <strong>${order.customer.name}</strong>, thank you for your order!</p>
+                <p>We've received it and will be in touch shortly. Your Order ID is:</p>
+                <p style="font-size:22px;font-weight:700;letter-spacing:1px;background:#f6f1ea;padding:14px 20px;border-radius:10px;display:inline-block">${orderRef.id}</p>
+                <p style="color:#666;font-size:13px">Save this ID to <a href="https://edwardsarpong.com/track.html?id=${orderRef.id}">track your order</a> at any time.</p>
+                <h3>Order Summary</h3>
+                <table style="width:100%;border-collapse:collapse">
+                  <thead><tr style="border-bottom:2px solid #1b1814">
+                    <th style="text-align:left;padding:6px 0">Item</th>
+                    <th style="text-align:center;padding:6px 0">Qty</th>
+                    <th style="text-align:right;padding:6px 0">Price</th>
+                  </tr></thead>
+                  <tbody>${itemHtmlRows}</tbody>
+                  <tfoot><tr>
+                    <td colspan="2" style="padding-top:12px;font-weight:700">Total (GHS)</td>
+                    <td style="padding-top:12px;font-weight:700;text-align:right">GHS ${order.subtotalGhs.toLocaleString()}</td>
+                  </tr></tfoot>
+                </table>
+                <hr style="margin:24px 0;border:none;border-top:1px solid #eee">
+                <p><strong>Payment:</strong> ${order.paymentMethod}</p>
+                <p><strong>Delivery to:</strong> ${order.customer.city || 'N/A'} – ${order.customer.address || 'N/A'}</p>
+                <p style="color:#666;font-size:13px">Questions? Reply to this email or call us. We're based in Kumasi and typically respond within a few hours.</p>
+                <p style="margin-top:24px">— The Edward Sarpong Enterprise Team</p>
+              </div>
+            `
+          }
+        });
+      }
 
       res.status(200).json({ success: true, id: orderRef.id });
     } catch (error) {

@@ -1,12 +1,28 @@
-[
+﻿[
   {
     "id": "kitchen-classic",
     "name": "Classic Kitchen Cabinet Set",
     "category": "Kitchen",
     "priceGhs": 12500,
+    "discountGhs": 500,
     "leadTime": "4-6 weeks",
+    "stock": "Made to Order",
     "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
-    "description": "Solid wood cabinetry with soft-close hardware and premium finishes."
+    "images": [
+      "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1556909114-44e1cd5fdc8e?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=900&q=80"
+    ],
+    "description": "Solid wood cabinetry with soft-close hardware and premium finishes. Fully customisable to fit your kitchen layout.",
+    "dimensions": "Base units: W2400 x D600 x H900mm. Wall units: W2400 x D320 x H720mm",
+    "materials": ["Solid Mahogany", "Soft-close hinges", "Concealed rails", "Hardwood carcass"],
+    "variants": [
+      {"label": "Finish", "options": ["Natural Mahogany", "Dark Walnut", "Cream White", "Charcoal Grey"]},
+      {"label": "Handle Style", "options": ["Matte Black Pulls", "Gold Bar Handles", "Push-to-Open"]}
+    ],
+    "features": ["Soft-close doors & drawers", "Custom dimensions on request", "5-year workmanship warranty", "Free delivery in Kumasi"],
+    "rating": 4.9,
+    "reviews": 34
   },
   {
     "id": "wardrobe-compact",
@@ -14,17 +30,46 @@
     "category": "Wardrobes",
     "priceGhs": 6400,
     "leadTime": "3-5 weeks",
+    "stock": "Made to Order",
     "image": "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=900&q=80",
-    "description": "Custom closet solution with adjustable shelving and drawers."
+    "images": [
+      "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80"
+    ],
+    "description": "Custom closet solution with adjustable shelving, hanging rails, and deep drawers. Maximises storage in any bedroom.",
+    "dimensions": "W1800 x D600 x H2400mm (standard; custom widths available)",
+    "materials": ["Engineered wood carcass", "Soft-close drawers", "Adjustable shelving pins", "MDF doors"],
+    "variants": [
+      {"label": "Door Type", "options": ["Hinged", "Sliding"]},
+      {"label": "Finish", "options": ["White Gloss", "Natural Oak", "Dark Espresso", "Dusty Pink"]}
+    ],
+    "features": ["Floor-to-ceiling design", "Integrated shoe rack option", "Full-length mirror option", "Custom sizing"],
+    "rating": 4.8,
+    "reviews": 27
   },
   {
     "id": "tv-unit-luxe",
     "name": "Luxe TV Wall Unit",
     "category": "TV Units",
     "priceGhs": 7200,
+    "discountGhs": 200,
     "leadTime": "3-4 weeks",
+    "stock": "In Stock",
     "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80",
-    "description": "Floating media wall with hidden storage and integrated lighting."
+    "images": [
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80"
+    ],
+    "description": "Floating media wall with hidden cable management, display shelves, and integrated backlit lighting. Fits TVs up to 75 inches.",
+    "dimensions": "W2800 x D350 x H1800mm",
+    "materials": ["MDF with veneer wrap", "LED strip lighting", "Tempered glass shelves", "Soft-close cabinets"],
+    "variants": [
+      {"label": "Finish", "options": ["Gloss White", "Smoked Oak", "Concrete Grey", "Matte Black"]},
+      {"label": "Lighting", "options": ["No Lighting", "Warm White LED", "RGB LED +GHS200"]}
+    ],
+    "features": ["Integrated cable trunking", "Adjustable display niches", "Supports TVs up to 75\"", "Hidden storage compartments"],
+    "rating": 4.9,
+    "reviews": 19
   },
   {
     "id": "countertop-quartz",
@@ -32,8 +77,22 @@
     "category": "Countertops",
     "priceGhs": 9800,
     "leadTime": "2-3 weeks",
+    "stock": "Limited Stock",
     "image": "https://images.unsplash.com/photo-1556909114-44e1cd5fdc8e?auto=format&fit=crop&w=900&q=80",
-    "description": "Durable quartz surfaces for kitchens or vanities with edge profiling."
+    "images": [
+      "https://images.unsplash.com/photo-1556909114-44e1cd5fdc8e?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80"
+    ],
+    "description": "Durable engineered quartz surfaces for kitchens and vanities. Non-porous, stain-resistant, available in 12 colour options.",
+    "dimensions": "Up to 3000mm run included. Additional runs quoted separately.",
+    "materials": ["93% quartz crystal", "Polymer resin binder", "Polished edge profile"],
+    "variants": [
+      {"label": "Colour", "options": ["Arctic White", "Calacatta Marble Look", "Midnight Black", "Sand Beige", "Dove Grey"]},
+      {"label": "Edge Profile", "options": ["Square Edge", "Bevelled Edge", "Bullnose Edge"]}
+    ],
+    "features": ["Non-porous surface", "Scratch & stain resistant", "Heat resistant to 150C", "10-year manufacturer warranty"],
+    "rating": 4.7,
+    "reviews": 22
   },
   {
     "id": "office-executive",
@@ -41,8 +100,22 @@
     "category": "Office Furniture",
     "priceGhs": 5200,
     "leadTime": "3-4 weeks",
+    "stock": "Made to Order",
     "image": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80",
-    "description": "Ergonomic executive desk with cable management and storage."
+    "images": [
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1497366412874-3415097a27e7?auto=format&fit=crop&w=900&q=80"
+    ],
+    "description": "Ergonomic executive desk with integrated cable management, lockable pedestal drawers, and a generous work surface.",
+    "dimensions": "W1800 x D900 x H760mm (standard); L-shape and standing options available",
+    "materials": ["Solid hardwood top", "Steel frame", "3-drawer lockable pedestal", "Cable management grommets"],
+    "variants": [
+      {"label": "Layout", "options": ["Standard Straight", "L-Shape +GHS800", "Standing Desk +GHS1200"]},
+      {"label": "Finish", "options": ["Dark Walnut", "Light Oak", "White"]}
+    ],
+    "features": ["Integrated cable grommets", "Lockable storage", "Ergonomic depth", "Anti-scratch surface"],
+    "rating": 4.8,
+    "reviews": 16
   },
   {
     "id": "reception-fitout",
@@ -50,35 +123,85 @@
     "category": "Office Furniture",
     "priceGhs": 8700,
     "leadTime": "4-6 weeks",
+    "stock": "Made to Order",
     "image": "https://images.unsplash.com/photo-1497366412874-3415097a27e7?auto=format&fit=crop&w=900&q=80",
-    "description": "Custom reception counter with laminate and wood accents."
+    "images": [
+      "https://images.unsplash.com/photo-1497366412874-3415097a27e7?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80"
+    ],
+    "description": "Custom reception counter with branded laminate panel, raised visitor counter, and integrated storage.",
+    "dimensions": "W2400 x D800 x H1100mm. Counter return W1200mm optional.",
+    "materials": ["HMR MDF carcass", "Premium laminate wrap", "Solid surface visitor top", "Lockable storage"],
+    "variants": [
+      {"label": "Front Panel", "options": ["Timber Veneer", "High Gloss Laminate", "Stone Look Laminate"]},
+      {"label": "Colour", "options": ["White & Chrome", "Walnut & Black", "Grey & Gold"]}
+    ],
+    "features": ["Branded panel options", "Integrated under-counter storage", "Cable trunking", "Raised visitor counter"],
+    "rating": 4.9,
+    "reviews": 11
   },
   {
     "id": "hardware-soft-close",
-    "name": "Soft-Close Hinge Set",
+    "name": "Soft-Close Hinge Set (10 pairs)",
     "category": "Hardware",
     "priceGhs": 420,
     "leadTime": "1-2 weeks",
+    "stock": "In Stock",
     "image": "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80",
-    "description": "Premium soft-close hinges for smooth, silent cabinet doors."
+    "images": [
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80"
+    ],
+    "description": "Premium soft-close hinges for smooth, silent cabinet doors. Suitable for all standard overlay and inset doors.",
+    "dimensions": "35mm cup diameter. 26mm or 32mm hole drilling depth.",
+    "materials": ["Cold-rolled steel", "Nickel plated"],
+    "variants": [
+      {"label": "Type", "options": ["Full Overlay", "Half Overlay", "Inset"]}
+    ],
+    "features": ["Tool-free adjustment", "100,000 cycle tested", "Fits all standard cabinets", "Damped closing action"],
+    "rating": 4.6,
+    "reviews": 41
   },
   {
     "id": "hardware-drawer-slides",
-    "name": "Heavy-Duty Drawer Slides",
+    "name": "Heavy-Duty Drawer Slides (5 pairs)",
     "category": "Hardware",
     "priceGhs": 380,
     "leadTime": "1-2 weeks",
+    "stock": "In Stock",
     "image": "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=900&q=80",
-    "description": "Ball-bearing slides rated for frequent, heavy use."
+    "images": [
+      "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=900&q=80"
+    ],
+    "description": "Full-extension ball-bearing drawer slides rated for 45kg loads. Smooth, quiet action for daily heavy use.",
+    "dimensions": "Available in 400mm, 500mm, 600mm lengths.",
+    "materials": ["Cold-rolled steel", "Ball-bearing rollers", "Epoxy coating"],
+    "variants": [
+      {"label": "Length", "options": ["400mm", "500mm", "600mm"]}
+    ],
+    "features": ["Full extension", "45kg load rating", "Self-closing", "Easy disconnect"],
+    "rating": 4.7,
+    "reviews": 38
   },
   {
     "id": "hardware-handles",
-    "name": "Matte Black Handle Set",
+    "name": "Matte Black Handle Set (10 pcs)",
     "category": "Hardware",
     "priceGhs": 260,
     "leadTime": "1-2 weeks",
+    "stock": "In Stock",
     "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80",
-    "description": "Modern pull handles with durable powder coating."
+    "images": [
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80"
+    ],
+    "description": "Modern bar pull handles with durable powder-coated finish. Corrosion resistant and fingerprint resistant.",
+    "dimensions": "160mm hole spacing. Total length 200mm.",
+    "materials": ["Zinc alloy", "Powder-coated finish"],
+    "variants": [
+      {"label": "Finish", "options": ["Matte Black", "Brushed Gold", "Brushed Nickel", "Chrome"]}
+    ],
+    "features": ["Corrosion resistant", "Fingerprint resistant", "Universal fixing screws included", "Suitable for kitchen & wardrobe"],
+    "rating": 4.5,
+    "reviews": 52
   },
   {
     "id": "kitchen-island",
@@ -86,8 +209,22 @@
     "category": "Kitchen",
     "priceGhs": 8900,
     "leadTime": "3-5 weeks",
+    "stock": "Made to Order",
     "image": "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=900&q=80",
-    "description": "Custom island with storage, seating, and durable worktop."
+    "images": [
+      "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80"
+    ],
+    "description": "Custom kitchen island with storage, pendant-light-ready top, and optional breakfast bar overhang.",
+    "dimensions": "W1500 x D900 x H900mm. Overhang adds 300mm to one side.",
+    "materials": ["Hardwood frame", "Quartz or granite top", "Soft-close doors", "Drawer storage"],
+    "variants": [
+      {"label": "Top Material", "options": ["Quartz", "Granite +GHS500", "Solid Wood +GHS300"]},
+      {"label": "Seating Overhang", "options": ["No Overhang", "Single Side (2 stools)", "Double Side (4 stools) +GHS400"]}
+    ],
+    "features": ["Integrated power socket option", "Deep drawer storage", "Pendant light wiring point", "Custom sizing"],
+    "rating": 4.9,
+    "reviews": 18
   },
   {
     "id": "wardrobe-sliding",
@@ -95,8 +232,22 @@
     "category": "Wardrobes",
     "priceGhs": 7600,
     "leadTime": "3-5 weeks",
-    "image": "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=900&q=80",
-    "description": "Space-saving wardrobe with mirrored sliding doors."
+    "stock": "Made to Order",
+    "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1600121848594-d8644e57abab?auto=format&fit=crop&w=900&q=80"
+    ],
+    "description": "Space-saving wardrobe with smooth-glide sliding doors, a full-length mirror panel, and versatile internal layout.",
+    "dimensions": "W2000 x D650 x H2400mm (standard; custom widths up to 4000mm)",
+    "materials": ["Engineered board carcass", "Aluminium sliding track", "MDF door panels", "Integrated mirror"],
+    "variants": [
+      {"label": "Door Panels", "options": ["Mirror", "White Gloss", "Grey Fabric Pattern", "Wood Effect"]},
+      {"label": "Internal Layout", "options": ["Standard (rails + shelves)", "Maximiser (more shelving)", "Shoe Rack Edition"]}
+    ],
+    "features": ["Soft-close sliding system", "Full-length mirror included", "Floor-to-ceiling design", "Custom width up to 4m"],
+    "rating": 4.8,
+    "reviews": 23
   },
   {
     "id": "office-workstation",
@@ -104,8 +255,22 @@
     "category": "Office Furniture",
     "priceGhs": 11200,
     "leadTime": "4-6 weeks",
+    "stock": "Made to Order",
     "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80",
-    "description": "Multi-user workstation setup with integrated storage."
+    "images": [
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80"
+    ],
+    "description": "4-person office cluster with divider screens, shared cable trays, and under-desk pedestal storage.",
+    "dimensions": "Each station: W1400 x D700 x H740mm. Full cluster: 2800 x 1400mm",
+    "materials": ["Melamine board", "Steel legs", "PVC privacy screen", "Cable tray"],
+    "variants": [
+      {"label": "Number of Stations", "options": ["2-Person", "4-Person", "6-Person +GHS3000"]},
+      {"label": "Screen Height", "options": ["No Screen", "Low Screen (400mm)", "Full Privacy Screen (800mm)"]}
+    ],
+    "features": ["Shared cable management", "Lockable pedestals", "Power module compatible", "Easy reconfiguration"],
+    "rating": 4.7,
+    "reviews": 14
   },
   {
     "id": "countertop-granite",
@@ -113,7 +278,20 @@
     "category": "Countertops",
     "priceGhs": 11800,
     "leadTime": "2-4 weeks",
+    "stock": "Limited Stock",
     "image": "https://images.unsplash.com/photo-1556909114-44e1cd5fdc8e?auto=format&fit=crop&w=900&q=80",
-    "description": "Premium granite surface upgrade with edge finishing."
+    "images": [
+      "https://images.unsplash.com/photo-1556909114-44e1cd5fdc8e?auto=format&fit=crop&w=900&q=80"
+    ],
+    "description": "Premium natural granite countertop with polished finish and professional on-site installation. Each slab is unique.",
+    "dimensions": "Up to 3000mm run included. Breakfast bar overhangs extra.",
+    "materials": ["Natural granite stone", "Silicone-sealed joints", "Polished finish"],
+    "variants": [
+      {"label": "Stone Type", "options": ["Black Galaxy", "Kashmir White", "Himalayan Blue", "Tan Brown"]},
+      {"label": "Edge Profile", "options": ["Square Edge", "Bullnose Edge", "Bevelled Edge"]}
+    ],
+    "features": ["Unique natural pattern", "Heat & scratch resistant", "Professional installation included", "Sealed & polished"],
+    "rating": 4.8,
+    "reviews": 17
   }
 ]
