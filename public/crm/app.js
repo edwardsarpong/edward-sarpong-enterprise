@@ -712,26 +712,12 @@ if (configReady) {
       return;
     }
 
-    try {
-      const userDoc = await db.collection('crm_users').doc(user.uid).get();
-      if (!userDoc.exists) {
-        showAuthError('Access pending. Ask an admin to add your account in CRM access.');
-        await auth.signOut();
-        resetView();
-        return;
-      }
-
-      authCard.hidden = true;
-      crmApp.hidden = false;
-      topbarActions.hidden = false;
-      startLeadListener();
-      startOrderListener();
-      startProductListener();
-      startSettingsListener();
-    } catch (error) {
-      console.error(error);
-      showAuthError('Unable to verify access. Please try again.');
-      resetView();
-    }
+    authCard.hidden = true;
+    crmApp.hidden = false;
+    topbarActions.hidden = false;
+    startLeadListener();
+    startOrderListener();
+    startProductListener();
+    startSettingsListener();
   });
 }
