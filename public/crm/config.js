@@ -1,8 +1,8 @@
 window.firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBUQNNc84fYpEilKuud0Lx-Z5R1MyqnMLU",
+  authDomain: "edward-sarpong-official.firebaseapp.com",
+  projectId: "edward-sarpong-official",
+  storageBucket: "edward-sarpong-official.firebasestorage.app",
+  messagingSenderId: "296316957705",
+  appId: "1:296316957705:web:49e54a7b747c68e6f9f4d8"
 };
