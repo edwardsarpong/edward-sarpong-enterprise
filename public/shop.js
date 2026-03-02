@@ -108,6 +108,7 @@ function updateCartDisplay() {
       savedItems.innerHTML = '<div class="muted">No saved items.</div>';
     } else {
       savedItems.innerHTML = '';
+      const savCurrency = currencySelect.value;
       saved.forEach((item) => {
         const product = findProduct(item.id);
         const image = item.image || product?.image || 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=300&q=80';
@@ -117,7 +118,7 @@ function updateCartDisplay() {
           <img src="${image}" alt="${item.name}" loading="lazy">
           <div>
             <strong>${item.name}</strong>
-            <div class="muted">GHS ${Number(item.priceGhs).toLocaleString()}</div>
+            <div class="muted">${formatMoney(getDisplayPrice(item.priceGhs, savCurrency), savCurrency)}</div>
           </div>
           <button class="btn" type="button" data-action="restore" data-id="${item.id}">Move to cart</button>
         `;
@@ -129,8 +130,9 @@ function updateCartDisplay() {
 
   if (!cart.length) {
     cartItems.innerHTML = '<div class="muted">Your cart is empty.</div>';
-    cartSubtotal.textContent = 'GHS 0';
-    if (cartSavings) cartSavings.textContent = 'GHS 0';
+    const emptyCurrency = currencySelect.value;
+    cartSubtotal.textContent = formatMoney(0, emptyCurrency);
+    if (cartSavings) cartSavings.textContent = formatMoney(0, emptyCurrency);
     if (cartItemCount) cartItemCount.textContent = '0 items';
     return;
   }
@@ -157,8 +159,8 @@ function updateCartDisplay() {
       <div class="cart-item-info">
         <strong>${item.name}</strong>
         <div class="muted">Delivery estimate: ${leadTime}</div>
-        <div class="muted">GHS ${Number(item.priceGhs).toLocaleString()} each</div>
-        <div class="muted">Savings: GHS ${discount.toLocaleString()}</div>
+        <div class="muted">${formatMoney(getDisplayPrice(item.priceGhs, currency), currency)} each</div>
+        <div class="muted">Savings: ${formatMoney(getDisplayPrice(discount, currency), currency)}</div>
       </div>
       <div class="cart-item-actions">
         <div class="qty-controls">
@@ -186,8 +188,8 @@ function updateCartDisplay() {
     cartItems.appendChild(row);
   });
 
-  cartSubtotal.textContent = `GHS ${subtotalGhs.toLocaleString()}`;
-  if (cartSavings) cartSavings.textContent = `GHS ${savingsGhs.toLocaleString()}`;
+  cartSubtotal.textContent = formatMoney(getDisplayPrice(subtotalGhs, currency), currency);
+  if (cartSavings) cartSavings.textContent = formatMoney(getDisplayPrice(savingsGhs, currency), currency);
   if (cartItemCount) cartItemCount.textContent = `${cart.reduce((sum, item) => sum + item.quantity, 0)} items`;
 }
 
@@ -268,6 +270,21 @@ function renderProducts() {
   });
 }
 
+async function autoDetectCurrency() {
+  const cached = localStorage.getItem('eseDetectedCurrency');
+  if (cached) return cached;
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    const data = await res.json();
+    const currency = data.currency;
+    if (currency && /^[A-Z]{3}$/.test(currency)) {
+      localStorage.setItem('eseDetectedCurrency', currency);
+      return currency;
+    }
+  } catch (_) {}
+  return 'GHS';
+}
+
 async function loadRates() {
   const currency = currencySelect.value;
   if (currency === 'GHS') {
@@ -276,12 +293,14 @@ async function loadRates() {
   }
 
   try {
-    const response = await fetch('https://api.exchangerate.host/latest?base=GHS');
+    const response = await fetch('https://open.er-api.com/v6/latest/GHS');
     const data = await response.json();
-    rates = { ...rates, ...data.rates };
-    rateNote.textContent = 'Rates update automatically.';
+    if (data.result === 'success' && data.rates) {
+      rates = { ...rates, ...data.rates };
+    }
+    rateNote.textContent = 'Live exchange rates. Payments are collected in GHS.';
   } catch (error) {
-    rateNote.textContent = 'Using cached rates. Payments are collected in GHS.';
+    rateNote.textContent = 'Using estimated rates. Payments are collected in GHS.';
   }
 }
 
@@ -433,7 +452,22 @@ checkoutForm.addEventListener('submit', async (event) => {
   }
 });
 
-loadPaymentSettings().then(() => loadRates().then(loadProducts));
+async function init() {
+  const detected = await autoDetectCurrency();
+  // Add detected currency to dropdown if not already present
+  if (!Array.from(currencySelect.options).some(o => o.value === detected)) {
+    const opt = document.createElement('option');
+    opt.value = detected;
+    opt.textContent = detected;
+    currencySelect.insertBefore(opt, currencySelect.firstChild);
+  }
+  currencySelect.value = detected;
+  await loadPaymentSettings();
+  await loadRates();
+  await loadProducts();
+}
+
+init();
 
 if (cartToggle) {
   cartToggle.addEventListener('click', () => toggleCartDrawer(true));
